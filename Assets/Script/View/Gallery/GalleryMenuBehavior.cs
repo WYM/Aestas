@@ -1,36 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
-public class MenuBehavior : MonoBehaviour {
+public class GalleryMenuBehavior : MonoBehaviour {
 
     public AudioSource bgm;
+    public Image black;
     float volume = 1;
 
     void Start ()
     {
-	
 	}
 	
 	void Update ()
     {
+	
+	}
 
-    }
-
-    public void New_Click()
+    public void Back_Click()
     {
-        WaitAndLoadLevel("Game");
-        FadeBGM();
-    }
-
-    public void Extra_Click()
-    {
-        WaitAndLoadLevel("Gallery");
-        FadeBGM();
-    }
-
-    public void Exit_Click()
-    {
-        WaitAndLoadLevel("Exit");
+        black.gameObject.SetActive(true);
+        black.CrossFadeColor(new Color(0, 0, 0, 0), 0f, true, true);
+        black.CrossFadeColor(new Color(0, 0, 0, 1), 1f, true, true);
+        WaitAndLoadLevel("Title2");
         FadeBGM();
     }
 
