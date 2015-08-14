@@ -25,7 +25,17 @@ public class GalleryButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         durationOut = durationIn * 1.5f;
 
         btn = this.GetComponent<Button>();
-        Reset();
+        
+        // 默认进入位于 Event 界面，故 Event 按钮不进行 Reset。
+        if (this.name == "Event")
+        {
+            bool isActive = true;
+            bool isAnimating = true;
+        }
+        else
+        {
+            Reset();
+        }
     }
 	
 	void Update ()

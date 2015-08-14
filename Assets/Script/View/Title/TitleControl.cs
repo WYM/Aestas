@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 
 public class TitleControl : MonoBehaviour {
-
+    
     public GameObject blackMask;
     public GameObject whiteMask;
     public GameObject fxCamera;
@@ -33,15 +33,16 @@ public class TitleControl : MonoBehaviour {
 
     public void StartTitle()
     {
+
         StartCoroutine(DelayToInvoke.DelayToInvokeDo(() =>
         {
             blackMask.GetComponent<Image>().DOFade(0, 0.8f);
+            bgm.Play();
         }, 0.5f));
 
         StartCoroutine(DelayToInvoke.DelayToInvokeDo(() =>
         {
             blackMask.SetActive(false);
-            bgm.Play();
         }, 1.4f));
 
         StartCoroutine(DelayToInvoke.DelayToInvokeDo(() =>
