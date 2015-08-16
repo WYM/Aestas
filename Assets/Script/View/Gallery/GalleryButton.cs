@@ -27,10 +27,10 @@ public class GalleryButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         btn = this.GetComponent<Button>();
         
         // 默认进入位于 Event 界面，故 Event 按钮不进行 Reset。
-        if (this.name == "Event")
+        if (this.name == "Event" || this.name == "Basic" || this.name == "Save" || this.name == "Load")
         {
-            bool isActive = true;
-            bool isAnimating = true;
+            isActive = true;
+            isAnimating = true;
         }
         else
         {

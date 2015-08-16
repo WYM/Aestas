@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class GalleryMenuBehavior : MonoBehaviour {
+    
+    public string MenuType;
 
     public AudioSource bgm;
     public GameObject bgFade;
@@ -11,8 +13,18 @@ public class GalleryMenuBehavior : MonoBehaviour {
     private float volume = 1;
 
     private GameObject panelCurrent;
+
+
     public GameObject panelEvent;
     public GameObject panelSoundtrack;
+    public GameObject panelTrophy;
+    public GameObject panelMemo;
+
+    public GameObject panelSave;
+    public GameObject panelLoad;
+    public GameObject panelBasic;
+    public GameObject panelPersonalize;
+    public GameObject panelAccount;
 
     void Start ()
     {
@@ -20,9 +32,31 @@ public class GalleryMenuBehavior : MonoBehaviour {
         bgFade.GetComponent<Image>().CrossFadeAlpha(0, 0, true);
         bgFade.SetActive(false);
 
-        //默认位于 Event 界面
-        Event_Click();
-        panelCurrent = panelEvent;
+        switch (MenuType)
+        {
+            case "Gallery":
+                //默认位于 Event 界面
+                Event_Click();
+                panelCurrent = panelEvent;
+                break;
+            case "Option":
+                //默认位于 Event 界面
+                Basic_Click();
+                panelCurrent = panelBasic;
+                break;
+            case "Save":
+                //默认位于 Event 界面
+                Save_Click();
+                panelCurrent = panelSave;
+                break;
+            case "Load":
+                //默认位于 Event 界面
+                Load_Click();
+                panelCurrent = panelLoad;
+                break;
+            default:
+                break;
+        }
     }
 	
 	void Update ()
@@ -38,6 +72,41 @@ public class GalleryMenuBehavior : MonoBehaviour {
     public void Soundtrack_Click()
     {
         LoadSubScene(panelSoundtrack);
+    }
+
+    public void Trophy_Click()
+    {
+        LoadSubScene(panelTrophy);
+    }
+
+    public void Memo_Click()
+    {
+        LoadSubScene(panelMemo);
+    }
+
+    public void Save_Click()
+    {
+        LoadSubScene(panelSave);
+    }
+
+    public void Load_Click()
+    {
+        LoadSubScene(panelLoad);
+    }
+
+    public void Basic_Click()
+    {
+        LoadSubScene(panelBasic);
+    }
+
+    public void Personalize_Click()
+    {
+        LoadSubScene(panelPersonalize);
+    }
+
+    public void Account_Click()
+    {
+        LoadSubScene(panelAccount);
     }
 
     public void Back_Click()

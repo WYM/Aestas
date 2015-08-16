@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 
+//滚动条控件扩展
+//不滚动时自动隐藏
 public class ScrollbarExtend : MonoBehaviour{
 
     public GameObject handle;

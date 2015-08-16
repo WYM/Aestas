@@ -213,4 +213,8 @@ public class ScriptReader : MonoBehaviour {
         Debug.Log("[SR][" + nl + "] " + content);
     }
 
+    public void BackToTitle()
+    {
+        Application.LoadLevelAsync("Title2");
+    }
 }

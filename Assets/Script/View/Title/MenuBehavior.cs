@@ -22,9 +22,21 @@ public class MenuBehavior : MonoBehaviour {
         FadeBGM();
     }
 
+    public void Load_Click()
+    {
+        WaitAndLoadLevel("Load");
+        FadeBGM();
+    }
+
     public void Extra_Click()
     {
         WaitAndLoadLevel("Gallery");
+        FadeBGM();
+    }
+
+    public void Option_Click()
+    {
+        WaitAndLoadLevel("Option");
         FadeBGM();
     }
 
