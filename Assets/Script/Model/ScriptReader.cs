@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 using UnityEngine.UI;
 
-public class ScriptReader : MonoBehaviour {
+public class ScriptReader : MonoBehaviour, ISequenceEndEvent {
 
     string scriptPath;
 
@@ -16,6 +17,9 @@ public class ScriptReader : MonoBehaviour {
 
     public Background2D bg2d;
     public GameObject blackMask;
+
+    public bool stopable = true;
+    public bool isSequencing = false;
 
 	void Start () 
     {
@@ -84,7 +88,7 @@ public class ScriptReader : MonoBehaviour {
         StartCoroutine(DelayToInvoke.DelayToInvokeDo(() =>
         {
             NextLine();
-        }, 0.2f));
+        }, 0.1f));
 
     }
 	
@@ -92,6 +96,40 @@ public class ScriptReader : MonoBehaviour {
     {
 	
 	}
+
+    public void onSequenceEnd()
+    {
+        isSequencing = false;
+    }
+
+    public void ButtonHandler()
+    {
+        if (!isSequencing)
+        {
+            NextLine();
+        }
+        else
+        {
+            ExecuteEvents.Execute<ISequenceEndEvent>(this.gameObject, null, (x, y) => x.onSequenceEnd());
+            switch (sAp.Q("command"))
+            {
+                case "c":
+                case "Character":
+                    switch (sAp.Q("function"))
+                    {
+                        case "s":
+                        case "say":
+                            cm.SayInstantly(); //立即显示未完成动画
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
     public void NextLine()
     {
@@ -167,7 +205,7 @@ public class ScriptReader : MonoBehaviour {
                         cm.DestoryCharacter(sAp.Q("object"));
                         break;
                     case "face":
-                        Log("改变表情：" + sAp.Q("object") + " > " + sAp.Q("para1"));
+                        //Log("改变表情：" + sAp.Q("object") + " > " + sAp.Q("para1"));
                         cm.UpdateEmotion(sAp.Q("object"), sAp.Q("para1"));
                         break;
                     case "move":
@@ -190,6 +228,7 @@ public class ScriptReader : MonoBehaviour {
                             cm.PlayAudio(sAp.Q("para1"));
                         }
                         cm.Say(sAp.Q("object"), sAp.Q("para2"));
+                        isSequencing = true;
                         break;
                     case "fx":
                         if (sAp.Q("para1") == "shake") cm.FX_Shake(sAp.Q("object"));

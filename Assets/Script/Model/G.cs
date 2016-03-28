@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class G
 {
+    public static string server = "127.0.0.1";
+
 
     public static string agcPath = Application.streamingAssetsPath + "/agc/";
     public static string tempPath = Application.streamingAssetsPath + "/temp/";

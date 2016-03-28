@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class MoviePlay : MonoBehaviour {
-
+    /* 兼容Android，先暂时注释掉 */
+    /*
     public MovieTexture movTexture_StudioASC;
     public AudioSource audio_StudioASC;
     public float timer = 0;
@@ -35,4 +36,5 @@ public class MoviePlay : MonoBehaviour {
         audio_StudioASC.Stop();
         Application.LoadLevel("Title2");
     }
+    */
 }

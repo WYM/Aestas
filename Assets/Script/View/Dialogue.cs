@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
+using System.Collections;
+using DG.Tweening;
 
 public class Dialogue : MonoBehaviour {
 
     public GameObject dialogueTextObj;
     public GameObject dialogueBackgroundObj;
     public GameObject dialogueAvatarObj;
+    public TalkText talk;
 
     Text diaText;
     Image diaBackground;
@@ -19,43 +21,23 @@ public class Dialogue : MonoBehaviour {
 
     float textSpeed = 0.03f;
 
-	// Use this for initialization
+    string cNameENow;
+    bool isAvatarVisible;
+    
 	void Start () 
     {
         diaText = dialogueTextObj.GetComponent<Text>();
         diaAvatar = dialogueAvatarObj.GetComponent<Image>();
-	}
+        dialogueAvatarObj.GetComponent<RectTransform>().DOLocalMoveX(-1140, 0f);
+    }
 	
-	// Update is called once per frame
 	void Update () 
     {
-        timer += Time.deltaTime;
-        if (timer > textSpeed)
-        {
-            if (isTyping)
-            {
-                if (typingText.Length < 2)
-                {
-                    diaText.text += typingText;
-                    typingText = "";
-                    isTyping = false;
-                }
-                else
-                {
-                    diaText.text += typingText.Substring(0, 1);
-                    typingText = typingText.Substring(1);
-                }
-            }
-
-            timer -= textSpeed;
-        }
 	}
 
     public void UpdateText(string text)
     {
-        diaText.text = "";
-        isTyping = true;
-        typingText = text;
+        talk.ShowText(text);
     }
 
     public void ClearText()
@@ -67,13 +49,19 @@ public class Dialogue : MonoBehaviour {
 
     public void UpdateAvatar(string cNameE)
     {
+        if (cNameENow == cNameE && isAvatarVisible) return;
+        cNameENow = cNameE;
+        isAvatarVisible = true;
         diaAvatar.overrideSprite = ResourcesOperator.LoadSprite(G.avatarPath + cNameE);
         diaAvatar.CrossFadeAlpha(1f, 0.2f, true);
+        dialogueAvatarObj.GetComponent<RectTransform>().DOLocalMoveX(-780, 0.2f);
     }
 
     public void ClearAvatar()
     {
+        isAvatarVisible = false;
         diaAvatar.CrossFadeAlpha(0f, 0.2f, true);
+        dialogueAvatarObj.GetComponent<RectTransform>().DOLocalMoveX(-1140, 0.2f);
     }
 
     public void HideDialogue()

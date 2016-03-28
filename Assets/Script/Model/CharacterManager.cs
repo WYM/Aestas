@@ -266,6 +266,12 @@ public class CharacterManager : MonoBehaviour
         Talk.UpdateText(text);
     }
 
+    //立即显示渐变中对话
+    public void SayInstantly()
+    {
+        Talk.talk.ShowInstantly();
+    }
+
     //播放音频
     public void PlayAudio(string voiceName)
     {
@@ -275,6 +281,10 @@ public class CharacterManager : MonoBehaviour
     //改变对话框头像
     public void TalkAvatar(string cName)
     {
+        if (cName == "n") {
+            Talk.ClearAvatar();
+            return;
+        } 
         Talk.UpdateAvatar(GetNameEByName(cName));
     }
 
